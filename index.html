@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="sq">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mësojmë Alfabetin - Parafillore</title>
+
+    <style>
+
+        * {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+        body {
+
+            background-color: #222b35;
+
+            color: white;
+
+            font-family: 'Arial', sans-serif;
+
+            height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            overflow: hidden;
+
+            padding: 20px;
+
+        }
+
+        .header {
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            color: #ffffff;
+
+            margin-top: 10px;
+
+            letter-spacing: 1px;
+
+        }
+
+        .container {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-grow: 1;
+
+            text-align: center;
+
+            gap: 10px;
+
+        }
+
+        .shkronja {
+
+            font-size: 130px;
+
+            font-weight: bold;
+
+            color: #ffcc00;
+
+            line-height: 1.1;
+
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+
+        }
+
+        .emoji {
+
+            font-size: 110px;
+
+            line-height: 1.1;
+
+        }
+
+        .fjala {
+
+            font-size: 65px;
+
+            font-weight: bold;
+
+            color: #ffffff;
+
+            letter-spacing: 2px;
+
+        }
+
+        .button-container {
+
+            display: flex;
+
+            gap: 60px;
+
+            margin-bottom: 25px;
+
+        }
+
+        .btn {
+
+            font-size: 26px;
+
+            font-weight: bold;
+
+            padding: 16px 45px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            cursor: pointer;
+
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+
+            transition: transform 0.1s ease, background-color 0.2s ease;
+
+        }
+
+        .btn:active {
+
+            transform: scale(0.95);
+
+        }
+
+        .btn-para {
+
+            background-color: #00cc66;
+
+            color: #000000;
+
+        }
+
+        .btn-para:hover {
+
+            background-color: #00b359;
+
+        }
+
+        .btn-pas {
+
+            background-color: #0099ff;
+
+            color: #000000;
+
+        }
+
+        .btn-pas:hover {
+
+            background-color: #0088ee;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="header" id="lbl_numri">Shkronja 1 nga 36</div>
+
+
+    <div class="container">
+
+        <div class="shkronja" id="lbl_shkronja">A    a</div>
+
+        <div class="emoji" id="lbl_emoji">🍍</div>
+
+        <div class="fjala" id="lbl_fjala">Ananas</div>
+
+    </div>
+
+
+    <div class="button-container">
+
+        <button class="btn btn-para" onclick="faqjaPara()">&#9664; Para</button>
+
+        <button class="btn btn-pas" onclick="faqjaPas()">Pas &#9654;</button>
+
+    </div>
+
+
+    <script>
+
+        const alfabetiData = [
+
+            ["A", "a", "Ananas", "🍍"],
+
+            ["B", "b", "Bananja", "🍌"],
+
+            ["C", "c", "Cjapi", "🐐"],
+
+            ["Ç", "ç", "Çanta", "👜"],
+
+            ["D", "d", "Dardha", "🍐"],
+
+            ["Dh", "dh", "Dhia", "🐐"],
+
+            ["E", "e", "Elefanti", "🐘"],
+
+            ["Ë", "ë", "Ëmbëlsira", "🧁"],
+
+            ["F", "f", "Faqja", "😊"],
+
+            ["G", "g", "Gjeli", "🐓"],
+
+            ["Gj", "gj", "Gjarpri", "🐍"],
+
+            ["H", "h", "Hëna", "🌙"],
+
+            ["I", "i", "Igli", "🌟"],
+
+            ["J", "j", "Jorgan", "🛏️"],
+
+            ["K", "k", "Kalimi", "🐎"],
+
+            ["L", "l", "Lule", "🌸"],
+
+            ["Ll", "ll", "Llopata", "🛠️"],
+
+            ["M", "m", "Molla", "🍎"],
+
+            ["N", "n", "Nëna", "👩"],
+
+            ["Nj", "nj", "Njeri", "👤"],
+
+            ["O", "o", "Orë", "⏰"],
+
+            ["P", "p", "Peshku", "🐟"],
+
+            ["Q", "q", "Qeni", "🐶"],
+
+            ["R", "r", "Rrota", "🎡"],
+
+            ["Rr", "rr", "Rrushi", "🍇"],
+
+            ["S", "s", "Secili", "👥"],
+
+            ["Sh", "sh", "Shkolla", "🏫"],
+
+            ["T", "t", "Treni", "🚆"],
+
+            ["Th", "th", "Thekra", "🌾"],
+
+            ["U", "u", "Ujku", "🐺"],
+
+            ["V", "v", "Vazo", "🏺"],
+
+            ["X", "x", "Xixëllonja", "✨"],
+
+            ["Xh", "xh", "Xhamadani", "🧥"],
+
+            ["Y", "y", "Ylli", "⭐"],
+
+            ["Z", "z", "Zogu", "🐦"],
+
+            ["Zh", "zh", "Zhaba", "🐸"]
+
+        ];
+
+
+        let indeksiAktual = 0;
+
+
+        function perditesoFaqen() {
+
+            const item = alfabetiData[indeksiAktual];
+
+            document.getElementById("lbl_numri").innerText = `Shkronja ${indeksiAktual + 1} nga ${alfabetiData.length}`;
+
+            document.getElementById("lbl_shkronja").innerText = `${item[0]}    ${item[1]}`;
+
+            document.getElementById("lbl_emoji").innerText = item[3];
+
+            document.getElementById("lbl_fjala").innerText = item[2];
+
+        }
+
+
+        function faqjaPas() {
+
+            if (indeksiAktual < alfabetiData.length - 1) {
+
+                indeksiAktual++;
+
+                perditesoFaqen();
+
+            }
+
+        }
+
+
+        function faqjaPara() {
+
+            if (indeksiAktual > 0) {
+
+                indeksiAktual--;
+
+                perditesoFaqen();
+
+            }
+
+        }
+
+
+        // Mbështetje për tastierën ose telekomandën (shigjetat majtas/djathtas)
+
+        document.addEventListener('keydown', function(event) {
+
+            if (event.key === 'ArrowRight') {
+
+                faqjaPas();
+
+            } else if (event.key === 'ArrowLeft') {
+
+                faqjaPara();
+
+            }
+
+        });
+
+
+        perditesoFaqen();
+
+    </script>
+
+</body>
+
+</html>
