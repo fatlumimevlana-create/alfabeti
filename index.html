@@ -82,12 +82,15 @@
       <div class="dot"></div>
     </div>
 
-    <div class="buttons" id="buttonContainer"></div>
+    <div class="buttons" id="buttonContainer">
+      <!-- Butonat do të shfaqen automatikisht këtu -->
+    </div>
     
     <div class="status" id="statusText"></div>
   </div>
 
   <script>
+    // Lista e pyetjeve: këndet e orës (hourDeg, minDeg) dhe përgjigjja e saktë me opsionet
     const pyetjet = [
       { hDeg: 90,  mDeg: 0,   sakte: "Ora 3:00", opsione: ["Ora 3:00", "Ora 6:00"] },
       { hDeg: 180, mDeg: 0,   sakte: "Ora 6:00", opsione: ["Ora 12:00", "Ora 6:00"] },
@@ -100,18 +103,20 @@
 
     function ngarkoPyetjen() {
       if (currentIndex >= pyetjet.length) {
-        currentIndex = 0; 
+        currentIndex = 0; // Kthehet te e para nëse mbarojnë
       }
 
       let p = pyetjet[currentIndex];
       
+      // Vendos akrepat
       document.getElementById("hourHand").style.transform = `rotate(${p.hDeg}deg)`;
       document.getElementById("minuteHand").style.transform = `rotate(${p.mDeg}deg)`;
-      document.getElementById("statusText").innerText = "";
+      document.getElementById("statusTextinnerText = "";
 
       let btnContainer = document.getElementById("buttonContainer");
       btnContainer.innerHTML = "";
 
+      // Përziejmë opsionet që të ndryshojnë vendet
       let opsionetAktuale = [...p.opsione].sort(() => Math.random() - 0.5);
 
       opsionetAktuale.forEach(opsioni => {
@@ -143,6 +148,7 @@
       }
     }
 
+    // Nis lojën
     ngarkoPyetjen();
   </script>
 
