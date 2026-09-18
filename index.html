@@ -1,1 +1,195 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mësojmë Orën e Vërtetë me Akrepa</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #0d47a1, #1976d2);
+      color: white;
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2vh;
+      overflow: hidden;
+    }
+    .header { font-size: 1.2rem; font-weight: bold; color: #ffd166; margin-bottom: 1.5vh;}
 
+    .game-box {
+      background-color: white;
+      color: #0d47a1;
+      padding: 3vh;
+      border-radius: 2rem;
+      box-shadow: 0 1vh 3vh rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 550px;
+      text-align: center;
+    }
+
+    .clock {
+      width: 220px;
+      height: 220px;
+      border: 8px solid #b78103;
+      border-radius: 50%;
+      position: relative;
+      background: #fcf8e3;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+      margin-bottom: 2vh;
+    }
+
+    .number {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+      padding: 6px;
+    }
+    .n12 { transform: rotate(0deg); } .n12 span { display: inline-block; transform: rotate(0deg); }
+    .n1  { transform: rotate(30deg); } .n1 span { display: inline-block; transform: rotate(-30deg); }
+    .n2  { transform: rotate(60deg); } .n2 span { display: inline-block; transform: rotate(-60deg); }
+    .n3  { transform: rotate(90deg); } .n3 span { display: inline-block; transform: rotate(-90deg); }
+    .n4  { transform: rotate(120deg); } .n4 span { display: inline-block; transform: rotate(-120deg); }
+    .n5  { transform: rotate(150deg); } .n5 span { display: inline-block; transform: rotate(-150deg); }
+    .n6  { transform: rotate(180deg); } .n6 span { display: inline-block; transform: rotate(-180deg); }
+    .n7  { transform: rotate(210deg); } .n7 span { display: inline-block; transform: rotate(-210deg); }
+    .n8  { transform: rotate(240deg); } .n8 span { display: inline-block; transform: rotate(-240deg); }
+    .n9  { transform: rotate(270deg); } .n9 span { display: inline-block; transform: rotate(-270deg); }
+    .n10 { transform: rotate(300deg); } .n10 span { display: inline-block; transform: rotate(-300deg); }
+    .n11 { transform: rotate(330deg); } .n11 span { display: inline-block; transform: rotate(-330deg); }
+
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom;
+      border-radius: 4px;
+      z-index: 10;
+    }
+    .hour-hand { width: 6px; height: 55px; background: #0d47a1; margin-left: -3px; }
+    .minute-hand { width: 4px; height: 75px; background: #2e7d32; margin-left: -2px; }
+    .second-hand { width: 2px; height: 85px; background: #d32f2f; margin-left: -1px; }
+    .center-dot {
+      position: absolute; top: 50%; left: 50%;
+      width: 12px; height: 12px; background: #b78103;
+      border-radius: 50%; transform: translate(-50%, -50%); z-index: 15;
+    }
+
+    .opsionet {
+      display: flex;
+      justify-content: center;
+      gap: 2vh;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    button {
+      font-size: 1.6rem;
+      padding: 1.5vh 2vh;
+      border: none;
+      border-radius: 1rem;
+      background-color: #ff9100;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0.5vh 1vh rgba(0,0,0,0.3);
+      transition: 0.2s;
+      width: 45%;
+    }
+    button:hover, button:focus {
+      background-color: #ffc400;
+      color: #0d47a1;
+      outline: none;
+      transform: scale(1.05);
+    }
+    .mesazhi-fiks { font-size: 0.9rem; color: #bbdefb; margin-top: 1.5vh; }
+
+    @keyframes pulso {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+    .saktesisht {
+      animation: pulso 0.5s ease;
+      background-color: #00e676 !important;
+      color: white !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">⏰ Gara e Orës me Akrepa ⏰</div>
+
+  <div class="game-box" id="game-container">
+    <div class="clock" id="clock-face">
+      <div class="number n12"><span>12</span></div>
+      <div class="number n1"><span>1</span></div>
+      <div class="number n2"><span>2</span></div>
+      <div class="number n3"><span>3</span></div>
+      <div class="number n4"><span>4</span></div>
+      <div class="number n5"><span>5</span></div>
+      <div class="number n6"><span>6</span></div>
+      <div class="number n7"><span>7</span></div>
+      <div class="number n8"><span>8</span></div>
+      <div class="number n9"><span>9</span></div>
+      <div class="number n10"><span>10</span></div>
+      <div class="number n11"><span>11</span></div>
+
+      <div class="hand hour-hand" id="hour-hand"></div>
+      <div class="hand minute-hand" id="minute-hand"></div>
+      <div class="hand second-hand" id="second-hand"></div>
+      <div class="center-dot"></div>
+    </div>
+
+    <div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 1.5vh; color: #1976d2;">Sa është ora?</div>
+    <div class="opsionet" id="options-container"></div>
+  </div>
+
+  <div class="mesazhi-fiks">Shikoni akrepat dhe prekni butonin e saktë!</div>
+
+  <script>
+    const listaPyetjeve = [
+      { h: 3, m: 0,  s: 0,  teksti: "Ora 3:00", opsionet: ["Ora 3:00", "Ora 9:15"] },
+      { h: 3, m: 30, s: 0,  teksti: "Ora 3:30", opsionet: ["Ora 3:30", "Ora 6:00"] },
+      { h: 6, m: 0,  s: 0,  teksti: "Ora 6:00", opsionet: ["Ora 6:00", "Ora 12:30"] },
+      { h: 9, m: 0,  s: 0,  teksti: "Ora 9:00", opsionet: ["Ora 9:00", "Ora 2:15"] },
+      { h: 12,m: 0,  s: 0,  teksti: "Ora 12:00", opsionet: ["Ora 12:00", "Ora 4:30"] }
+    ];
+
+    let currentIndex = 0;
+
+    function vendosAkrepat(h, m, s) {
+      const sekondaDeg = s * 6;
+      const minutaDeg = (m * 6) + (s * 0.1);
+      const oraDeg = ((h % 12) * 30) + (m * 0.5);
+
+      document.getElementById("second-hand").style.transform = `rotate(${sekondaDeg}deg)`;
+      document.getElementById("minute-hand").style.transform = `rotate(${minutaDeg}deg)`;
+      document.getElementById("hour-hand").style.transform = `rotate(${oraDeg}deg)`;
+    }
+
+    function ngarkoPyetjen() {
+      if (currentIndex < listaPyetjeve.length) {
+        let p = listaPyetjeve[currentIndex];
+        vendosAkrepat(p.h, p.m, p.s);
+
+        let optBox = document.getElementById("options-container");
+        optBox.innerHTML = "";
+
+        let opsionetAktuale = [...p.opsionet].sort(() => Math.random() - 0.5);
+
+        opsionetAktuale.forEach((opsioni) => {
+          let btn = document.createElement("button");
+          btn.innerText = opsioni;
+          btn.onclick = () => verifiko(opsioni,
