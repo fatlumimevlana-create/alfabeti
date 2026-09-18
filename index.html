@@ -1,1 +1,151 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mësojmë Orën</title>
+  <style>
+    body {
+      background: #1976d2;
+      color: #333;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      width: 400px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    h2 { color: #1976d2; margin-bottom: 15px; }
+    .clock {
+      width: 160px;
+      height: 160px;
+      border: 6px solid #b78103;
+      border-radius: 50%;
+      position: relative;
+      background: #fcf8e3;
+      margin: 0 auto 20px auto;
+    }
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom;
+      border-radius: 4px;
+    }
+    .hour { width: 6px; height: 45px; background: #0d47a1; margin-left: -3px; }
+    .minute { width: 4px; height: 60px; background: #2e7d32; margin-left: -2px; }
+    .dot {
+      position: absolute; top: 50%; left: 50%;
+      width: 12px; height: 12px; background: #b78103;
+      border-radius: 50%; transform: translate(-50%, -50%);
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    button {
+      font-size: 1.2rem;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff9100;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      flex: 1;
+    }
+    button:hover { background-color: #ffc400; color: #0d47a1; }
+    .correct { background-color: #00e676 !important; }
+    .wrong { background-color: #ff5252 !important; }
+    .status { margin-top: 15px; font-size: 1.1rem; font-weight: bold; }
+  </style>
+</head>
+<body>
 
+  <div class="box">
+    <h2>Sa është ora?</h2>
+    
+    <div class="clock">
+      <div class="hand hour" id="hourHand"></div>
+      <div class="hand minute" id="minuteHand"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="buttons" id="buttonContainer"></div>
+    
+    <div class="status" id="statusText"></div>
+  </div>
+
+  <script>
+    const pyetjet = [
+      { hDeg: 90,  mDeg: 0, sakte: "Ora 3:00", opsione: ["Ora 3:00", "Ora 6:00"] },
+      { hDeg: 180, mDeg: 0, sakte: "Ora 6:00", opsione: ["Ora 12:00", "Ora 6:00"] },
+      { hDeg: 270, mDeg: 0, sakte: "Ora 9:00", opsione: ["Ora 9:00", "Ora 3:00"] },
+      { hDeg: 0,   mDeg: 0, sakte: "Ora 12:00", opsione: ["Ora 12:00", "Ora 6:00"] },
+      { hDeg: 135, mDeg: 0, sakte: "Ora 4:30", opsione: ["Ora 4:30", "Ora 10:15"] }
+    ];
+
+    let currentIndex = 0;
+
+    function ngarkoPyetjen() {
+      if (currentIndex >= pyetjet.length) {
+        currentIndex = 0; 
+      }
+
+      let p = pyetjet[currentIndex];
+      
+      document.getElementById("hourHand").style.transform = `rotate(${p.hDeg}deg)`;
+      document.getElementById("minuteHand").style.transform = `rotate(${p.mDeg}deg)`;
+      document.getElementById("statusTextinnerText = "";
+      document.getElementById("statusText").innerText = "";
+
+      let btnContainer = document.getElementById("buttonContainer");
+      btnContainer.innerHTML = "";
+
+      // Vendos butonat në mënyrë të rregullt
+      p.opsione.forEach(opsioni => {
+        let btn = document.createElement("button");
+        btn.innerText = opsioni;
+        btn.onclick = function() {
+          verifiko(opsioni, p.sakte, btn);
+        };
+        btnContainer.appendChild(btn);
+      });
+    }
+
+    function verifiko(zgjedhja, eSakte, btn) {
+      let status = document.getElementById("statusText");
+      if (zgjedhja === eSakte) {
+        btn.classList.add("correct");
+        status.style.color = "#2e7d32";
+        status.innerText = "Bravo! Përgjigjja e saktë! 🎉";
+        
+        setTimeout(() => {
+          currentIndex++;
+          ngarkoPyetjen();
+        }, 1500);
+      } else {
+        btn.classList.add("wrong");
+        status.style.color = "#d32f2f";
+        status.innerText = "Provo përsëri! ❌";
+        setTimeout(() => {
+          btn.classList.remove("wrong");
+        }, 500);
+      }
+    }
+
+    ngarkoPyetjen();
+  </script>
+
+</body>
+</html>
