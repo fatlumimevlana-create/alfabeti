@@ -7,7 +7,7 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
-      font-size: 38px !important;
+      font-size: 1.8rem; /* Përshtatet automatikisht me ekranin */
       background: linear-gradient(135deg, #1f4068, #162447);
       color: white;
       font-family: 'Arial', sans-serif;
@@ -16,31 +16,31 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 30px;
+      padding: 3vh;
       overflow: hidden;
     }
-    .header { font-size: 1.1rem; font-weight: bold; color: #e43f5a; }
+    .header { font-size: 1.2rem; font-weight: bold; color: #e43f5a; }
     .box {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 20px;
+      gap: 2vh;
       width: 100%;
       max-width: 900px;
     }
     .question { font-size: 1.6rem; text-align: center; font-weight: bold; }
-    .options { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+    .options { display: flex; flex-direction: column; gap: 2vh; width: 100%; }
     button {
-      font-size: 1.3rem;
-      padding: 18px;
+      font-size: 1.2rem;
+      padding: 2.5vh;
       border: none;
-      border-radius: 15px;
+      border-radius: 1rem;
       background-color: #ffffff;
       color: #162447;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      box-shadow: 0 0.5vh 1vh rgba(0,0,0,0.3);
       transition: 0.2s;
     }
     button:hover, button:focus {
@@ -49,7 +49,7 @@
       outline: none;
       transform: scale(1.02);
     }
-    .score-board { font-size: 1.4rem; color: #ffd166; font-weight: bold; }
+    .score-board { font-size: 1.3rem; color: #ffd166; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -62,7 +62,7 @@
     <div class="options" id="options-container"></div>
   </div>
 
-  <div style="font-size: 0.8rem; color: #adb5bd;">Prekni me gisht për të dhënë përgjigjen!</div>
+  <div style="font-size: 0.9rem; color: #adb5bd;">Prekni me gisht për të dhënë përgjigjen!</div>
 
   <script>
     const pyetjetDheGara = [
