@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+[ Saturday, September 19, 2026 1:11 AM ] ⁨Bekim⁩: <!DOCTYPE html>
 <html lang="sq">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mësojmë Orën - Loja e Dijes</title>
+  <title>Mësojmë Orën dhe Minutat - Loja e Dijes</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -47,8 +47,8 @@
       flex-wrap: wrap;
     }
     button {
-      font-size: 2.2rem;
-      padding: 2.5vh 3vh;
+      font-size: 2rem;
+      padding: 2vh 2.5vh;
       border: none;
       border-radius: 1rem;
       background-color: #ff9100;
@@ -57,7 +57,7 @@
       cursor: pointer;
       box-shadow: 0 0.5vh 1vh rgba(0,0,0,0.3);
       transition: 0.2s;
-      width: 42%;
+      width: 45%;
     }
     button:hover, button:focus {
       background-color: #ffc400;
@@ -81,7 +81,7 @@
 </head>
 <body>
 
-  <div class="header">⏰ Gara e Orës ⏰</div>
+  <div class="header">⏰ Gara e Orës dhe Minutave ⏰</div>
 
   <div class="game-box" id="game-container">
     <div class="imazhi-ora" id="ora-emoji">🕒</div>
@@ -92,12 +92,12 @@
   <div class="mesazhi-fiks">Prekni kohën e saktë me gisht!</div>
 
   <script>
-    const listaPyetjeveOr=. [
-      { emoji: "🕒", pyetje: "Ora 3:00", saktë: "Ora 3:00", opsionet: ["Ora 3:00", "Ora 9:00"] },
-      { emoji: "🕕", pyetje: "Ora 6:00", saktë: "Ora 6:00", opsionet: ["Ora 6:00", "Ora 12:00"] },
-      { emoji: "🕛", pyetje: "Ora 12:00", saktë: "Ora 12:00", opsionet: ["Ora 12:00", "Ora 1:00"] },
-      { emoji: "🕘", pyetje: "Ora 9:00", saktë: "Ora 9:00", opsionet: ["Ora 9:00", "Ora 4:00"] },
-      { emoji: "🕞", pyetje: "Ora 3:30", saktë: "Ora 3:30", opsionet: ["Ora 3:30", "Ora 6:30"] }
+    const listaPyetjeveOr = [
+      { emoji: "🕒", pyetje: "Ora 3:00", saktë: "Ora 3:00", opsionet: ["Ora 3:00", "Ora 9:15"] },
+      { emoji: "🕞", pyetje: "Ora 3:30 (Gjysmë)", saktë: "Ora 3:30", opsionet: ["Ora 3:30", "Ora 6:45"] },
+      { emoji: "🕕", pyetje: "Ora 6:00", saktë: "Ora 6:00", opsionet: ["Ora 6:00", "Ora 12:30"] },
+      { emoji: "🕘", pyetje: "Ora 9:00", saktë: "Ora 9:00", opsionet: ["Ora 9:00", "Ora 2:15"] },
+      { emoji: "🕛", pyetje: "Ora 12:00", saktë: "Ora 12:00", opsionet: ["Ora 12:00", "Ora 5:30"] }
     ];
 
     let currentIndex = 0;
@@ -143,7 +143,7 @@
 
     function akesoFundiOres() {
       let box = document.getElementById("game-container");
-      box.innerHTML = `<div style="font-size: 2.5rem; color: #0d47a1; font-weight: bold;">🎉 Urime!<br>E mësove orën për mrekulli!</div><div style="margin-top:3vh; font-size: 1.2rem; color: #555;">Rinis pas pak...</div>`;
+      box.innerHTML = `<div style="font-size: 2.5rem; color: #0d47a1; font-weight: bold;">🎉 Urime!<br>E mësove orën dhe minutat për mrekulli!</div><div style="margin-top:3vh; font-size: 1.2rem; color: #555;">Rinis pas pak...</div>`;
        setTimeout(() => {
         currentIndex = 0;
         box.innerHTML = `
