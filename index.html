@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mësojmë Orën</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #1976d2;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .box {
+      background: white;
+      color: #0d47a1;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      width: 480px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .clock {
+      width: 180px;
+      height: 180px;
+      border: 6px solid #b78103;
+      border-radius: 50%;
+      position: relative;
+      background: #fcf8e3;
+      margin: 0 auto 20px auto;
+    }
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom;
+      border-radius: 4px;
+    }
+    .hour { width: 5px; height: 45px; background: #0d47a1; margin-left: -2.5px; }
+    .minute { width: 3px; height: 65px; background: #2e7d32; margin-left: -1.5px; }
+    .dot {
+      position: absolute; top: 50%; left: 50%;
+      width: 10px; height: 10px; background: #b78103;
+      border-radius: 50%; transform: translate(-50%, -50%);
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+    button {
+      font-size: 1.5rem;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff9100;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover { background-color: #ffc400; color: #0d47a1; }
+    .correct { background-color: #00e676 !important; }
+  </style>
+</head>
+<body>
 
+  <div class="box">
+    <h2 style="margin-bottom: 15px; color: #1976d2;">Sa është ora?</h2>
+    
+    <div class="clock">
+      <div class="hand hour" style="transform: rotate(90deg);"></div>
+      <div class="hand minute" style="transform: rotate(0deg);"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="buttons">
+      <button onclick="sakt(this)">Ora 3:00</button>
+      <button onclick="gabim(this)">Ora 6:00</button>
+    </div>
+  </div>
+
+  <script>
+    function sakt(btn) {
+      btn.classList.add("correct");
+      setTimeout(() => alert("Bravo! Përgjigjja është e saktë!"), 200);
+    }
+    function gabim(btn) {
+      btn.style.backgroundColor = "#ff5252";
+      setTimeout(() => btn.style.backgroundColor = "#ff9100", 300);
+    }
+  </script>
+
+</body>
+</html>
