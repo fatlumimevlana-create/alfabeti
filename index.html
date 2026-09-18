@@ -36,16 +36,15 @@
       text-align: center;
     }
 
-    /* Stizimi i Orës Vizuale me Akrepa */
     .clock {
-      width: 240px;
-      height: 240px;
+      width: 220px;
+      height: 220px;
       border: 8px solid #b78103;
       border-radius: 50%;
       position: relative;
       background: #fcf8e3;
       box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
-      margin-bottom: 2.5vh;
+      margin-bottom: 2vh;
     }
 
     .number {
@@ -53,38 +52,24 @@
       width: 100%;
       height: 100%;
       text-align: center;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: #333;
-      padding: 8px;
+      padding: 6px;
     }
-    /* Pozicionimi i numrave të orës rreth e qark */
-    .n12 { transform: rotate(0deg); }
-    .n12 span { display: inline-block; transform: rotate(0deg); }
-    .n1  { transform: rotate(30deg); }
-    .n1 span { display: inline-block; transform: rotate(-30deg); }
-    .n2  { transform: rotate(60deg); }
-    .n2 span { display: inline-block; transform: rotate(-60deg); }
-    .n3  { transform: rotate(90deg); }
-    .n3 span { display: inline-block; transform: rotate(-90deg); }
-    .n4  { transform: rotate(120deg); }
-    .n4 span { display: inline-block; transform: rotate(-120deg); }
-    .n5  { transform: rotate(150deg); }
-    .n5 span { display: inline-block; transform: rotate(-150deg); }
-    .n6  { transform: rotate(180deg); }
-    .n6 span { display: inline-block; transform: rotate(-180deg); }
-    .n7  { transform: rotate(210deg); }
-    .n7 span { display: inline-block; transform: rotate(-210deg); }
-    .n8  { transform: rotate(240deg); }
-    .n8 span { display: inline-block; transform: rotate(-240deg); }
-    .n9  { transform: rotate(270deg); }
-    .n9 span { display: inline-block; transform: rotate(-270deg); }
-    .n10 { transform: rotate(300deg); }
-    .n10 span { display: inline-block; transform: rotate(-300deg); }
-    .n11 { transform: rotate(330deg); }
-    .n11 span { display: inline-block; transform: rotate(-330deg); }
+    .n12 { transform: rotate(0deg); } .n12 span { display: inline-block; transform: rotate(0deg); }
+    .n1  { transform: rotate(30deg); } .n1 span { display: inline-block; transform: rotate(-30deg); }
+    .n2  { transform: rotate(60deg); } .n2 span { display: inline-block; transform: rotate(-60deg); }
+    .n3  { transform: rotate(90deg); } .n3 span { display: inline-block; transform: rotate(-90deg); }
+    .n4  { transform: rotate(120deg); } .n4 span { display: inline-block; transform: rotate(-120deg); }
+    .n5  { transform: rotate(150deg); } .n5 span { display: inline-block; transform: rotate(-150deg); }
+    .n6  { transform: rotate(180deg); } .n6 span { display: inline-block; transform: rotate(-180deg); }
+    .n7  { transform: rotate(210deg); } .n7 span { display: inline-block; transform: rotate(-210deg); }
+    .n8  { transform: rotate(240deg); } .n8 span { display: inline-block; transform: rotate(-240deg); }
+    .n9  { transform: rotate(270deg); } .n9 span { display: inline-block; transform: rotate(-270deg); }
+    .n10 { transform: rotate(300deg); } .n10 span { display: inline-block; transform: rotate(-300deg); }
+    .n11 { transform: rotate(330deg); } .n11 span { display: inline-block; transform: rotate(-330deg); }
 
-    /* Akrepat e orës */
     .hand {
       position: absolute;
       bottom: 50%;
@@ -93,34 +78,13 @@
       border-radius: 4px;
       z-index: 10;
     }
-    .hour-hand {
-      width: 6px;
-      height: 60px;
-      background: #0d47a1;
-      margin-left: -3px;
-    }
-    .minute-hand {
-      width: 4px;
-      height: 85px;
-      background: #2e7d32;
-      margin-left: -2px;
-    }
-    .second-hand {
-      width: 2px;
-      height: 95px;
-      background: #d32f2f;
-      margin-left: -1px;
-    }
+    .hour-hand { width: 6px; height: 55px; background: #0d47a1; margin-left: -3px; }
+    .minute-hand { width: 4px; height: 75px; background: #2e7d32; margin-left: -2px; }
+    .second-hand { width: 2px; height: 85px; background: #d32f2f; margin-left: -1px; }
     .center-dot {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 14px;
-      height: 14px;
-      background: #b78103;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 15;
+      position: absolute; top: 50%; left: 50%;
+      width: 12px; height: 12px; background: #b78103;
+      border-radius: 50%; transform: translate(-50%, -50%); z-index: 15;
     }
 
     .opsionet {
@@ -131,8 +95,8 @@
       flex-wrap: wrap;
     }
     button {
-      font-size: 1.8rem;
-      padding: 1.8vh 2.5vh;
+      font-size: 1.6rem;
+      padding: 1.5vh 2vh;
       border: none;
       border-radius: 1rem;
       background-color: #ff9100;
@@ -165,10 +129,9 @@
 </head>
 <body>
 
-  <div class="header">⏰ Gara e Orës me Akrepa, Minuta dhe Sekonda ⏰</div>
+  <div class="header">⏰ Gara e Orës me Akrepa ⏰</div>
 
   <div class="game-box" id="game-container">
-    <!-- Ora Vizuale Analogjike -->
     <div class="clock" id="clock-face">
       <div class="number n12"><span>12</span></div>
       <div class="number n1"><span>1</span></div>
@@ -189,30 +152,44 @@
       <div class="center-dot"></div>
     </div>
 
-    <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 2vh; color: #1976d2;">Sa është ora në këtë foto?</div>
+    <div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 1.5vh; color: #1976d2;">Sa është ora?</div>
     <div class="opsionet" id="options-container"></div>
   </div>
 
-  <div class="mesazhi-fiks">Shikoni akrepat dhe prekni kohën e saktë!</div>
+  <div class="mesazhi-fiks">Shikoni akrepat dhe prekni butonin e saktë!</div>
 
   <script>
-    // Lista e pyetjeve: h (ora), m (minuta), s (sekonda)
     const listaPyetjeve = [
-      { h: 3, m: 0,  s: 0,  teksti: "Ora 3:00:00", opsionet: ["Ora 3:00:00", "Ora 9:15:30"] },
-      { h: 3, m: 15, s: 30, teksti: "Ora 3:15:30", opsionet: ["Ora 3:15:30", "Ora 6:30:00"] },
-      { h: 6, m: 30, s: 0,  teksti: "Ora 6:30:00", opsionet: ["Ora 6:30:00", "Ora 12:00:15"] },
-      { h: 9, m: 45, s: 45, teksti: "Ora 9:45:45", opsionet: ["Ora 9:45:45", "Ora 2:10:00"] },
-      { h: 12,m: 0,  s: 0,  teksti: "Ora 12:00:00", opsionet: ["Ora 12:00:00", "Ora 4:20:10"] }
+      { h: 3, m: 0,  s: 0,  teksti: "Ora 3:00", opsionet: ["Ora 3:00", "Ora 9:15"] },
+      { h: 3, m: 30, s: 0,  teksti: "Ora 3:30", opsionet: ["Ora 3:30", "Ora 6:00"] },
+      { h: 6, m: 0,  s: 0,  teksti: "Ora 6:00", opsionet: ["Ora 6:00", "Ora 12:30"] },
+      { h: 9, m: 0,  s: 0,  teksti: "Ora 9:00", opsionet: ["Ora 9:00", "Ora 2:15"] },
+      { h: 12,m: 0,  s: 0,  teksti: "Ora 12:00", opsionet: ["Ora 12:00", "Ora 4:30"] }
     ];
 
     let currentIndex = 0;
 
     function vendosAkrepat(h, m, s) {
-      // Llogaritja e këndeve për akrepat
-      const sekondaDeg = s * 6; // 360 / 60
-      const minutaDeg = (m * 6) + (s * 0.1); // 360 / 60 + lëvizja e vogël
-      const oraDeg = ((h % 12) * 30) + (m * 0.5); // 360 / 12 = 30 gradë për orë
+      const sekondaDeg = s * 6;
+      const minutaDeg = (m * 6) + (s * 0.1);
+      const oraDeg = ((h % 12) * 30) + (m * 0.5);
 
       document.getElementById("second-hand").style.transform = `rotate(${sekondaDeg}deg)`;
       document.getElementById("minute-hand").style.transform = `rotate(${minutaDeg}deg)`;
-      document.getElementById("hour-hand")
+      document.getElementById("hour-hand").style.transform = `rotate(${oraDeg}deg)`;
+    }
+
+    function ngarkoPyetjen() {
+      if (currentIndex < listaPyetjeve.length) {
+        let p = listaPyetjeve[currentIndex];
+        vendosAkrepat(p.h, p.m, p.s);
+
+        let optBox = document.getElementById("options-container");
+        optBox.innerHTML = "";
+
+        let opsionetAktuale = [...p.opsionet].sort(() => Math.random() - 0.5);
+
+        opsionetAktuale.forEach((opsioni) => {
+          let btn = document.createElement("button");
+          btn.innerText = opsioni;
+          btn.onclick = () => verifiko(opsioni,
