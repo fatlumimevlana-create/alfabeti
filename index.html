@@ -134,17 +134,16 @@
       let p = listaPyetjeve[currentIndex];
       if (zgjedhja === p.shkronjaSakte) {
         let slot = document.getElementById("shkronja-slot");
-        slot.innerText = zgjedhja; // Shkronja del fiks te viza
+        slot.innerText = zgjedhja; 
         btnElement.classList.add("saktesisht");
 
-        // Çaktivizo butonat që të mos preken dy herë gjatë pritjes
         let allButtons = document.querySelectorAll("#options-container button");
         allButtons.forEach(b => b.onclick = null);
 
         setTimeout(() => {
           currentIndex++;
           ngarkoPyetjen();
-        }, 1500); // Pret 1.5 sekonda që fëmijët ta shohin fjalën e plotë
+        }, 1500);
 
       } else {
         btnElement.style.backgroundColor = "#ff5252";
