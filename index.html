@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gjeje Shkronjën e Fshehur - Loja e Dijes</title>
+  <title>Gara e Alfabetit - Loja e Dijes</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -87,7 +87,7 @@
 </head>
 <body>
 
-  <div class="header">🏆 Gara e Betares 🏆</div>
+  <div class="header">🏆 Gara e Alfabetit 🏆</div>
 
   <div class="game-box" id="game-container">
     <div class="imazhi" id="figure-image">🍎</div>
@@ -98,7 +98,7 @@
   <div class="mesazhi-fiks">Prekni shkronjën e duhur me gisht!</div>
 
   <script>
-    // Lista e zgjeruar e fjalëve sipas alfabetit
+    // Lista e plotë e alfabetit
     const listaPyetjeve = [
       { imazhi: "🍎", prapashtesa: "ollë", shkronjaSakte: "M", opsionet: ["M", "P"] },
       { imazhi: "🍌", prapashtesa: "anane", shkronjaSakte: "B", opsionet: ["B", "V"] },
@@ -106,7 +106,14 @@
       { imazhi: "⚽", prapashtesa: "op", shkronjaSakte: "T", opsionet: ["T", "B"] },
       { imazhi: "🐟", prapashtesa: "eshkë", shkronjaSakte: "P", opsionet: ["P", "F"] },
       { imazhi: "🦁", prapashtesa: "uan", shkronjaSakte: "L", opsionet: ["L", "N"] },
-      { imazhi: "🚗", prapashtesa: "errë", shkronjaSakte: "K", opsionet: ["K", "T"] }
+      { imazhi: "🚗", prapashtesa: "errë", shkronjaSakte: "K", opsionet: ["K", "T"] },
+      { imazhi: "🐝", prapashtesa: "etë", shkronjaSakte: "B", opsionet: ["B", "D"] },
+      { imazhi: "☀️", prapashtesa: "ellë", shkronjaSakte: "Y", opsionet: ["Y", "I"] },
+      { imazhi: "🌳", prapashtesa: "urrë", shkronjaSakte: "P", opsionet: ["P", "B"] },
+      { imazhi: "🏠", prapashtesa: "pi", shkronjaSakte: "S", opsionet: ["S", "SH"] },
+      { imazhi: "🌹", prapashtesa: "uzë", shkronjaSakte: "R", opsionet: ["R", "L"] },
+      { imazhi: "📚", prapashtesa: "ibër", shkronjaSakte: "L", opsionet: ["L", "M"] },
+      { imazhi: "🦅", prapashtesa: "iponjë", shkronjaSakte: "Sh", opsionet: ["Sh", "S"] }
     ];
 
     let currentIndex = 0;
