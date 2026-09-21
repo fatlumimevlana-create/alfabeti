@@ -1,1 +1,196 @@
+<!DOCTYPE html>
+<html lang="sq">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mësojmë Alfabetin, Numrat, Ngjyrat dhe Format</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      font-size: 42px !important;
+      background-color: #222b35;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .header {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .letter {
+      font-size: 3.5rem;
+      font-weight: bold;
+    }
+
+    .icon {
+      font-size: 5rem;
+    }
+
+    .word {
+      font-size: 2rem;
+      color: #ffd166;
+    }
+
+    .controls {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 12px;
+      background-color: #ffffff;
+      color: #222b35;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:focus {
+      outline: 5px solid #ffd166;
+      background-color: #e2e2e2;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header" id="info">Mësojmë Parashkollor</div>
+
+  <div class="card">
+    <div class="letter" id="display-main">A a</div>
+    <div class="icon" id="display-icon">🍍</div>
+    <div class="word" id="display-word">Ananas</div>
+  </div>
+
+  <div class="controls">
+    <button id="btn-prev" onclick="ndrysho(-1)">◄ Para</button>
+    <button id="btn-next" onclick="ndrysho(1)">Pas ►</button>
+  </div>
+
+  <script>
+    const data = [
+      // Shkronjat (0 - 35)
+      ["A a", "🍍", "Ananas"],
+      ["B b", "🍌", "Bananja"],
+      ["C c", "🐐", "Cjapi"],
+      ["Ç ç", "🎒", "Çanta"],
+      ["D d", "🍐", "Dardha"],
+      ["Dh dh", "🐐", "Dhia"],
+      ["E e", "🐘", "Elefanti"],
+      ["Ë ë", "🍰", "Ëmbëlsira"],
+      ["F f", "😊", "Faqja"],
+      ["G g", "🐓", "Gjeli"],
+      ["Gj gj", "🐍", "Gjarpri"],
+      ["H h", "🌙", "Hëna"],
+      ["I i", "🦔", "Igli"],
+      ["J j", "🛋️", "Jorgani"],
+      ["K k", "🐴", "Kalimi"],
+      ["L l", "🌸", "Lule"],
+      ["Ll ll", "🥄", "Llopata"],
+      ["M m", "🍎", "Molla"],
+      ["N n", "👩", "Nëna"],
+      ["Nj nj", "👤", "Njeri"],
+      ["O o", "⏰", "Orë"],
+      ["P p", "🐟", "Peshku"],
+      ["Q q", "🐕", "Qeni"],
+      ["R r", "⚙️", "Rrota"],
+      ["Rr rr", "🍇", "Rrushi"],
+      ["S s", "🐟", "Sardelja"],
+      ["Sh sh", "🧦", "Shalqini"],
+      ["T t", "🍰", "Torta"],
+      ["Th th", "🦔", "Thëllëza"],
+      ["U u", "🐺", "Ujku"],
+      ["V v", "🍇", "Veshja"],
+      ["X x", "🎷", "Xilofoni"],
+      ["Xh xh", "🧥", "Xhaketa"],
+      ["Y y", "⭐", "Ylli"],
+      ["Z z", "🦓", "Zebra"],
+      ["Zh zh", "🐸", "Zhaba"],
+
+      // Numrat (36 - 45)
+      ["1", "1️⃣", "Një"],
+      ["2", "2️⃣", "Dy"],
+      ["3", "3️⃣", "Tre"],
+      ["4", "4️⃣", "Katër"],
+      ["5", "5️⃣", "Pesë"],
+      ["6", "6️⃣", "Gjashtë"],
+      ["7", "7️⃣", "Shtatë"],
+      ["8", "8️⃣", "Teta"],
+      ["9", "9️⃣", "Nëntë"],
+      ["10", "🔟", "Dhjetë"],
+
+      // Ngjyrat (46 - 51)
+      ["Ngjyra", "🔴", "E Kuqe"],
+      ["Ngjyra", "🔵", "E Kaltër"],
+      ["Ngjyra", "🟡", "E Verdhë"],
+      ["Ngjyra", "🟢", "E Gjelbër"],
+      ["Ngjyra", "🟠", "Portokalli"],
+      ["Ngjyra", "🟣", "Vjollcë"],
+
+      // Format Gjeometrike (52 - 56)
+      ["Forma", "⭕", "Rrethi"],
+      ["Forma", "⬛", "Katrori"],
+      ["Forma", "🔺", "Trekëndëshi"],
+      ["Forma", "⭐", "Ylli"],
+      ["Forma", "❤️", "Zemra"]
+    ];
+
+    let index = 0;
+
+    function azhorno() {
+      const item = data[index];
+      document.getElementById("display-main").innerText = item[0];
+      document.getElementById("display-icon").innerText = item[1];
+      document.getElementById("display-word").innerText = item[2];
+
+      let lloj = "Shkronja";
+      if (index >= 36 && index <= 45) lloj = "Numri";
+      else if (index >= 46 && index <= 51) lloj = "Ngjyra";
+      else if (index >= 52) lloj = "Forma";
+
+      document.getElementById("info").innerText = `${lloj} ${index + 1} nga ${data.length}`;
+    }
+
+    function ndrysho(pas) {
+      index += pas;
+      if (index < 0) index = data.length - 1;
+      if (index >= data.length) index = 0;
+      azhorno();
+    }
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") ndrysho(-1);
+      if (e.key === "ArrowRight") ndrysho(1);
+    });
+
+    document.getElementById("btn-next").focus();
+    azhorno();
+  </script>
+</body>
+
+</html>
