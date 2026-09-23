@@ -1,0 +1,135 @@
+from flask import Flask, jsonify, render_template_string
+
+app = Flask(__name__)
+
+# Të dhënat e rrugës simuluese Rahovec - Prizren
+ruga_rahovec_prizren = [
+    {"lat": 42.4031, "lng": 20.6551, "shpejtesia": 50},
+    {"lat": 42.4051, "lng": 20.6581, "shpejtesia": 75},
+    {"lat": 42.4081, "lng": 20.6621, "shpejtesia": 80},
+    {"lat": 42.4111, "lng": 20.6651, "shpejtesia": 60}
+]
+indeksi_rruges = {"step": 0}
+
+# Pikat e radarëve (koordinatat shembull)
+radaret = [
+    {"lat": 42.4051, "lng": 20.6581}
+]
+
+html_kodi = """
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GPS Tracker - Rahovec</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    
+    <style>
+        #map { height: 450px; width: 100%; margin-bottom: 10px; }
+        .alert-box { padding: 12px; font-weight: bold; border-radius: 5px; text-align: center; }
+        .bg-danger { background-color: #ff4d4d; color: white; }
+        .bg-success { background-color: #2ecc71; color: white; }
+        .info-panel { font-family: Arial, sans-serif; font-size: 16px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h3>Sistemi i Navigimit GPS</h3>
+    <div id="map"></div>
+    
+    <div class="info-panel">
+        Shpejtësia: <span id="speed">--</span> km/h
+    </div>
+    
+    <div id="alertBox" class="alert-box bg-success">Statusi: Duke kërkuar sinjalin...</div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    
+    <script>
+        // Inicializimi i hartës
+        var map = L.map('map').setView([42.4031, 20.6551], 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(map);
+
+        L.Control.geocoder({
+            defaultMarkGeocode: true,
+            placeholder: "Kërko vendin ose destinacionin..."
+        }).addTo(map);
+
+        var marker = L.marker([42.4031, 20.6551]).addTo(map);
+        
+        // Vargu për vijën blu
+        var latLngs = [];
+        var polyline = L.polyline(latLngs, {color: 'blue', weight: 5}).addTo(map);
+
+        var currentLat = 42.4031;
+        var currentLng = 20.6551;
+
+        var radaret = [
+            {lat: 42.4051, lng: 20.6581}
+        ];
+
+        function merrLokacionin() {
+            fetch('/api/lokacioni')
+                .then(response => response.json())
+                .then(data => {
+                    currentLat = data.lat;
+                    currentLng = data.lng;
+                    var shp = data.shpejtesia;
+                    var rehatiLatLon = [currentLat, currentLng];
+
+                    // Përditësimi i markerit dhe qendrimit të hartës te makina
+                    marker.setLatLng(rehatiLatLon);
+                    map.setView(rehatiLatLon, 14); 
+                    
+                    document.getElementById('speed').innerText = shp;
+
+                    // Shtimi i pikave në vijën blu
+                    latLngs.push(rehatiLatLon);
+                    polyline.setLatLngs(latLngs);
+
+                    // Kontrolli i radarit
+                    var afërRadar = false;
+                    radaret.forEach(function(rad) {
+                        var dist = Math.abs(rad.lat - currentLat) + Math.abs(rad.lng - currentLng);
+                        if (dist < 0.015) {
+                            afërRadar = true;
+                        }
+                    });
+
+                    var alertBox = document.getElementById('alertBox');
+                    if (afërRadar && shp > 70) {
+                        alertBox.className = "alert-box bg-danger";
+                        alertBox.innerHTML = "⚠️ KUJDES RADAR! Shpejtësi e lartë!";
+                    } else {
+                        alertBox.className = "alert-box bg-success";
+                        alertBox.innerHTML = "Statusi: Rrugë e sigurt";
+                    }
+                })
+                .catch(error => console.error('Gabim në lidhje:', error));
+        }
+
+        setInterval(merrLokacionin, 3000);
+    </script>
+</body>
+</html>
+"""
+
+
+@app.route('/')
+def indeksi():
+    return render_template_string(html_kodi)
+
+
+@app.route('/api/lokacioni')
+def api_lokacioni():
+    current_step = indeksi_rruges["step"]
+    pika = ruga_rahovec_prizren[current_step]
+    indeksi_rruges["step"] = (current_step + 1) % len(ruga_rahovec_prizren)
+    return jsonify(pika)
+
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
