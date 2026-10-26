@@ -1,4 +1,4 @@
-[ Monday, October 26, 2026 8:50 PM ] ⁨Bekim⁩: name: Build APK
+name: Build APK
 
 on:
   push:
