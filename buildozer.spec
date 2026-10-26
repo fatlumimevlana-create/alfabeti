@@ -1,32 +1,46 @@
-name: Build APK
+[app]
 
-on:
-  push:
-    branches: [ main ]
+# (str) Title of your application
+title = Mësojmë Alfabetin
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# (str) Package name
+package.name = alfabeti
 
-    steps:
-    - uses: actions/checkout@v2
+# (str) Package domain (needed for android packaging)
+package.domain = org.alfabeti
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: "3.10"
+# (str) Source directory where the app lives
+source.dir = .
 
-    - name: Install Buildozer dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+# (list) Source files to include (let it include python files and assets)
+source.include_exts = py,png,jpg,kv,atlas
 
-    - name: Install Buildozer
-      run: |
-        pip install --upgrade pip
-        pip install buildozer
+# (str) Application versioning
+version = 0.1
 
-    - name: Run Buildozer
-      run: |
-        buildozer clean
-        buildozer -v android debug
+# (list) Application requirements
+# Specify python modules your app uses (e.g., kivy, etc.)
+requirements = python3,kivy,cython
+
+# (str) Supported orientations
+orientation = portrait
+
+# (list) Permissions
+android.permissions = INTERNET
+
+# (int) Target Android API, should be as high as possible.
+android.api = 33
+
+# (int) Minimum API your APK will support.
+android.minapi = 21
+
+# (str) Android SDK license agreement ('True' to accept)
+android.accept_sdk_license = True
+
+# (list) Architectures to build for
+android.archs = arm64-v8a
+
+[buildozer]
+
+# (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
+log_level = 2
