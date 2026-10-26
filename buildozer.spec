@@ -19,7 +19,6 @@ source.include_exts = py,png,jpg,kv,atlas
 requirements = python3,kivy,cython
 android.api = 33
 android.minapi = 21
-requirements = python3,kivy,cython
 # (str) Supported orientations
 orientation = portrait
 
