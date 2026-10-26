@@ -11,21 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Build with Buildozer
+      uses: ArtemSBulgakov/buildozer-action@v1
       with:
-        python-version: "3.10"
-
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y python3-pip build-essential git python3-setuptools python3-wheel libffi-dev libssl-dev
-
-    - name: Install Buildozer
-      run: |
-        pip install --upgrade pip
-        pip install buildozer Cython==0.29.36
-
-    - name: Run Buildozer
-      run: |
-        buildozer -v android debug
+        command: buildozer -v android debug
