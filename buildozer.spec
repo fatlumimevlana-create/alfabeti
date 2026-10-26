@@ -1,6 +1,7 @@
 [app]
 source.dir = .
 version = 0.1
+android.accept_sdk_license = True
 # (str) Title of your application
 title = Mësojmë Alfabetin
 
