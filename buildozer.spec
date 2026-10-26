@@ -19,7 +19,6 @@ source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
 
 # (list) Application requirements
-# Specify python modules your app uses (e.g., kivy, etc.)
 requirements = python3,kivy
 
 # (str) Supported orientations
