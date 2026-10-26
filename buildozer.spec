@@ -16,7 +16,7 @@ source.include_exts = py,png,jpg,kv,atlas
 
 # (list) Application requirements
 # Specify python modules your app uses (e.g., kivy, etc.)
-requirements = python3,kivy
+requirements = python3,kivy,cython
 android.api = 33
 android.minapi = 21
 # (str) Supported orientations
