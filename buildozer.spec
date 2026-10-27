@@ -2,6 +2,7 @@
 
 # (str) Title of your application
 title = Mësojmë Alfabetin
+source.main_filename = Indeteti
 
 # (str) Package name
 package.name = alfabeti
