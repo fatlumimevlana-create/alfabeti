@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Llogaritësi i Faturës së Ujit</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .karta {
+      background: #ffffff;
+      width: 100%;
+      max-width: 400px;
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      margin-top: 0;
+      text-align: center;
+      color: #0d47a1;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #1565c0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0d47a1;
+    }
+    .gabim {
+      color: #c62828;
+      margin-top: 12px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .rezultati {
+      margin-top: 18px;
+      padding: 14px;
+      background-color: #e3f2fd;
+      border-radius: 8px;
+      line-height: 1.7;
+      color: #111;
+      display: none;
+    }
+    .totali {
+      font-size: 18px;
+      font-weight: bold;
+      color: #0d47a1;
+      border-top: 1px solid #90caf9;
+      padding-top: 8px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="karta">
+    <h2>Fatura e Ujit (KRU Gjakova)</h2>
+
+    <label for="kubiket">Shkruani kubikët e shpenzuar (m³):</label>
+    <input type="number" id="kubiket" step="0.01" min="0" placeholder="p.sh. 15" />
+
+    <button onclick="llogaritFaturen()">Llogarit Faturën</button>
+
+    <div id="gabim" class="gabim"></div>
+    <div id="rezultati" class="rezultati"></div>
+  </div>
+
+  <script>
+    function llogaritFaturen() {
+      const input = document.getElementById("kubiket").value;
+      const gabimDiv = document.getElementById("gabim");
+      const rezultatiDiv = document.getElementById("rezultati");
+
+      gabimDiv.textContent = "";
+      rezultatiDiv.style.display = "none";
+
+      const kubiket = parseFloat(input);
+
+      if (isNaN(kubiket)) {
+        gabimDiv.textContent = "Ju lutem shkruani një numër të vlefshëm!";
+        return;
+      }
+
+      if (kubiket < 0) {
+        gabimDiv.textContent = "Kubikët nuk mund të jenë negativë!";
+        return;
+      }
+
+      // Tarifat sipas KRU Gjakova
+      const cmimiUji = 0.52;
+      const cmimiKanalizimi = 0.18;
+      const tarifaFikse = 1.30;
+
+      // Llogaritja
+      const shumaUji = kubiket * cmimiUji;
+      const shumaKanalizimi = kubiket * cmimiKanalizimi;
+      const shumaNeto = shumaUji + shumaKanalizimi + tarifaFikse;
+      const tvsh = shumaNeto * 0.08;
+      const totali = shumaNeto + tvsh;
+
+      rezultatiDiv.innerHTML = `
+        <strong>Për ${kubiket} kubikë:</strong><br>
+        Uji (${cmimiUji.toFixed(2)} €): <strong>${shumaUji.toFixed(2)} €</strong><br>
+        Kanalizimi (${cmimiKanalizimi.toFixed(2)} €): <strong>${shumaKanalizimi.toFixed(2)} €</strong><br>
+        Tarifa fikse: <strong>${tarifaFikse.toFixed(2)} €</strong><br>
+        Shuma neto: <strong>${shumaNeto.toFixed(2)} €</strong><br>
+        TVSH (8%): <strong>${tvsh.toFixed(2)} €</strong>
+        <div class="totali">Totali për pagesë: ${totali.toFixed(2)} €</div>
+      `;
+      rezultatiDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>
